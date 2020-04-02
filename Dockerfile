@@ -5,7 +5,7 @@ WORKDIR /app
 
 # install dependency
 RUN apt update
-RUN apt install -y python-dev build-essential
+RUN apt install -y python-dev build-essential tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-chi-tra libtesseract-dev libleptonica-dev pkg-config
 RUN pip install -U uwsgi
 
 COPY . .
