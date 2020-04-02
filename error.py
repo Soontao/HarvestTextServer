@@ -21,3 +21,9 @@ class BaseError(Exception):
 
 class ParameterError(BaseError):
     status_code = 400
+
+
+class ParameterLostError(ParameterError):
+
+    def __init__(self, param_name):
+        ParameterError.__init__(self, f"{param_name} must be provided.")
