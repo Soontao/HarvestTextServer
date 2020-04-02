@@ -27,6 +27,7 @@ Jinja2==2.11.1
 jmespath==0.9.5
 joblib==0.14.1
 JPype1==0.7.0
+langid==1.1.6
 lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
@@ -53,6 +54,7 @@ scikit-learn==0.22.2.post1
 scipy==1.4.1
 six==1.14.0
 smart-open==1.10.0
+textblob==0.15.3
 tqdm==4.44.1
 typed-ast==1.4.1
 urllib3==1.25.8
