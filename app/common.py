@@ -11,7 +11,7 @@ def entry_status():
     response success when server is up
     ---
     tags:
-        - common
+        -   common
     responses:
         200:
             description: server ping-pong response

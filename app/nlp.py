@@ -55,7 +55,7 @@ def text_sentiment_zh():
     text sentiment for chinese
     ---
     tags:
-        - nlp
+        -   nlp
     parameters:
         -   in: query
             name: text
