@@ -1,6 +1,9 @@
 
 
 class BaseError(Exception):
+    """
+    application base error
+    """
 
     status_code = 500
 
@@ -12,6 +15,9 @@ class BaseError(Exception):
         self.payload = payload
 
     def to_dict(self):
+        """
+        convert to dict
+        """
         return {
             "error_type": self.__class__.__name__,
             "error": self.message,
@@ -20,10 +26,17 @@ class BaseError(Exception):
 
 
 class ParameterError(BaseError):
+    """
+    parameter related error
+    """
+
     status_code = 400
 
 
 class ParameterLostError(ParameterError):
+    """
+    parameter lost error
+    """
 
     def __init__(self, param_name):
         ParameterError.__init__(self, f"{param_name} must be provided.")

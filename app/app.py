@@ -1,9 +1,9 @@
 from flask import Flask, request, jsonify
+from flasgger import Swagger
 from error import BaseError
 from nlp import nlp_api
 from image import image_api
 from common import common_api
-from flasgger import Swagger
 
 app = Flask(__name__)
 
@@ -24,6 +24,9 @@ app.register_blueprint(image_api, url_prefix="/api/v1/image")
 
 @app.errorhandler(BaseError)
 def handle_invalid_usage(e):
+    """
+    handle invalid message
+    """
     response = jsonify(e.to_dict())
     response.status_code = e.status_code
     return response
