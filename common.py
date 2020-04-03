@@ -16,6 +16,7 @@ def entry_status():
         200:
             description: server ping-pong response
             schema:
+                name: ServerMetircResponse
                 type: object
                 properties:
                     code:

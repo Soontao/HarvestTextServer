@@ -1,8 +1,11 @@
-from flask import Blueprint, request
+from flask import Blueprint, request, jsonify, make_response, send_file
 from error import ParameterLostError
 import tesserocr
 from PIL import Image
 from flasgger import Swagger
+from cv2 import cv2
+import numpy
+import io
 
 image_api = Blueprint("image_api", __name__)
 
@@ -31,7 +34,7 @@ def tesseract_ocr():
     consumes:
         -   multipart/form-data
     responses:
-        200: 
+        200:
             description: ocr result
             schema:
                 type: object
@@ -57,7 +60,7 @@ def tesseract_ocr_supported_languages():
     """
     tesseract ocr supported languages
 
-    supported languages of tesseract ocr 
+    supported languages of tesseract ocr
     ---
     tags:
         - ocr
@@ -66,17 +69,99 @@ def tesseract_ocr_supported_languages():
             description: a list of supported languages
             schema:
                 type: object
-                properties: 
+                properties:
                     code:
                         type: integer
                     supported_languages:
                         type: array
                         items:
                             type: string
-            examples: 
+            examples:
                 supported_languages: {"code":200,"supported_languages":["eng"]}
     """
     return {
         "code": 200,
         "supported_languages": tesserocr.get_languages()[1]
     }
+
+
+@image_api.route("/edge_detection", methods=["POST"])
+def canny_edge_detection():
+    """
+    edge detection service
+    ---
+    tags:
+        -   image
+    parameters:
+        -   in: formData
+            name: image
+            type: file
+            required: true
+            description: The image to upload.
+    responses:
+        200:
+            description: the edge detection array
+            schema:
+                type: object
+                properties:
+                    code:
+                        type: integer
+                    edges:
+                        type: array
+                        items:
+                            type: array
+                            items: 
+                                type: integer
+                            minItems: 2
+                            maxItems: 2
+
+    """
+    if 'image' not in request.files:
+        raise ParameterLostError("image")
+
+    img = cv2.imdecode(numpy.fromstring(
+        request.files['image'].read(), numpy.uint8), cv2.IMREAD_UNCHANGED)
+
+    edges = cv2.Canny(img, 100, 200)
+    indices = numpy.where(edges != [0])
+    coordinates = zip(indices[0], indices[1])
+
+    return jsonify({
+        "code": 200,
+        "edges": list(map(lambda a: [int(a[0]), int(a[1])], list(coordinates)))
+    })
+
+
+@image_api.route("/edge_detection_preview", methods=["POST"])
+def canny_edge_detection_preview():
+    """
+    edge detection preview
+    ---
+    tags:
+        -   image
+    parameters:
+        -   in: formData
+            name: image
+            type: file
+            required: true
+            description: The image to upload.
+    responses:
+        200:
+            description: the edge detection preview image
+            content:
+                image/png:
+                    schema:
+                        type: string
+                        format: binary
+    """
+    if 'image' not in request.files:
+        raise ParameterLostError("image")
+
+    img = cv2.imdecode(numpy.fromstring(
+        request.files['image'].read(), numpy.uint8), cv2.IMREAD_UNCHANGED)
+
+    edges = cv2.Canny(img, 100, 200)
+
+    _, f = cv2.imencode(".png", edges)
+
+    return send_file(io.BytesIO(f.tobytes()), "image/png")
