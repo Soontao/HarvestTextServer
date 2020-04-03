@@ -8,11 +8,11 @@ from flasgger import Swagger
 app = Flask(__name__)
 
 app.config['SWAGGER'] = {
-    'title': 'Machine Learning Web Service',
+    "title": "ML Service",
     "description": "Out-of-Box machine learning web services",
     "version": "0.0.1-alpha",
     "termsOfService": "",
-    'uiversion': 3
+    "uiversion": 3
 }
 
 swagger = Swagger(app)
