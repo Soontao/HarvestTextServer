@@ -1,5 +1,5 @@
 # ML Service
 
-![Python application](https://github.com/Soontao/ML-Service/workflows/Python%20application/badge.svg)
+![Python CI](https://github.com/Soontao/ML-Service/workflows/Python%20CI/badge.svg)
 
 Machine Learning Web Services
