@@ -1,11 +1,10 @@
-from flask import Blueprint, request, jsonify, make_response, send_file
-from error import ParameterLostError
+import io
+from flask import Blueprint, request, jsonify, send_file
 import tesserocr
 from PIL import Image
-from flasgger import Swagger
 from cv2 import cv2
 import numpy
-import io
+from error import ParameterLostError
 
 image_api = Blueprint("image_api", __name__)
 
@@ -15,7 +14,8 @@ def tesseract_ocr():
     """
     tesseract ocr
 
-    english (better) ocr processing, if you want to use other language, set the 'lang' parameter in query
+    english (better) ocr processing,
+    if you want to use other language, set the 'lang' parameter in query
     ---
     tags:
         - ocr
@@ -110,7 +110,7 @@ def canny_edge_detection():
                         type: array
                         items:
                             type: array
-                            items: 
+                            items:
                                 type: integer
                             minItems: 2
                             maxItems: 2

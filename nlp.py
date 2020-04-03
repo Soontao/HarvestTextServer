@@ -1,14 +1,15 @@
 from flask import Blueprint, request
 from jiagu import sentiment
-from error import ParameterLostError
 from textblob import TextBlob
 from langid import classify
+from error import ParameterLostError
 
 nlp_api = Blueprint("npl_api", __name__)
 
 
 @nlp_api.route("/lang_detect")
 def lang_detect():
+    # pylint: disable=line-too-long
     """
     text language detection
     ---
@@ -22,17 +23,17 @@ def lang_detect():
             default: hello world!
             description: text content
     responses:
-        200:    
+        200:
             description: text detection result
             schema:
                 type: object
                 properties:
-                    code: 
+                    code:
                         type: integer
-                    lang: 
+                    lang:
                         type: string
                         enum: [af, am, an, ar, as, az, be, bg, bn, br, bs, ca, cs, cy, da, de, dz, el, en, eo, es, et, eu, fa, fi, fo, fr, ga, gl, gu, he, hi, hr, ht, hu, hy, id, is, it, ja, jv, ka, kk, km, kn, ko, ku, ky, la, lb, lo, lt, lv, mg, mk, ml, mn, mr, ms, mt, nb, ne, nl, nn, no, oc, or, pa, pl, ps, pt, qu, ro, ru, rw, se, si, sk, sl, sq, sr, sv, sw, ta, te, th, tl, tr, ug, uk, ur, vi, vo, wa, xh, zh, zu]
-                    probability: 
+                    probability:
                         type: number
 
 
@@ -65,10 +66,10 @@ def text_sentiment_zh():
     responses:
         200:
             description: chinese sentiment response
-            schema: 
+            schema:
                 type: object
                 properties:
-                    code: 
+                    code:
                         type: integer
                         description: status code
                     sentiment:
@@ -109,22 +110,26 @@ def text_sentiment_en():
     responses:
         200:
             description: english sentiment response
-            schema: 
+            schema:
                 type: object
                 properties:
-                    code: 
+                    code:
                         type: integer
                         description: status code
                     polarity:
                         type: integer
-                        description: polarity is a float within the range [-1.0, 1.0], value < 0 means negative, > 0 means positive
+                        description: >
+                            polarity is a float within the range [-1.0, 1.0],
+                            value < 0 means negative, > 0 means positive
                         minimum: -1.0
                         maximum: 1.0
                     subjectivity:
                         type: integer
                         minimum: 0.0
                         maximum: 1.0
-                        description: subjectivity is a float within the range [0.0, 1.0] where 0.0 is very objective and 1.0 is very subjective.
+                        description: >
+                            subjectivity is a float within the range [0.0, 1.0]
+                            where 0.0 is very objective and 1.0 is very subjective.
 
     """
     text = request.args.get("text")
