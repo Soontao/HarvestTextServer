@@ -36,13 +36,17 @@ lazy-object-proxy==1.4.3
 MarkupSafe==1.1.1
 mccabe==0.6.1
 mistune==0.8.4
+more-itertools==8.2.0
 networkx==2.4
 nltk==3.4.5
 numpy==1.18.2
 opencv-python==4.2.0.32
+packaging==20.3
 pandas==1.0.3
 Pillow==7.1.0
+pluggy==0.13.1
 protobuf==3.11.3
+py==1.8.1
 pyasn1==0.4.8
 pyasn1-modules==0.2.8
 pycodestyle==2.5.0
@@ -51,6 +55,7 @@ pylint==2.4.4
 pyparsing==2.4.6
 pypinyin==0.37.0
 pyrsistent==0.16.0
+pytest==5.4.1
 python-dateutil==2.8.1
 python-louvain==0.13
 pytz==2019.3
@@ -69,6 +74,7 @@ tqdm==4.44.1
 typed-ast==1.4.1
 urllib3==1.25.8
 w3lib==1.21.0
+wcwidth==0.1.9
 Werkzeug==1.0.1
 wrapt==1.11.2
 zipp==3.1.0
