@@ -29,9 +29,13 @@ jobs:
         pip install -r requirements.txt
     - name: Lint with pylint
       run: |
-        pip install pyline
+        pip install pylint
         pylint *.py
     - name: Test with pytest
       run: |
-        pip install pytest
-        pytest -v
+        pip install pytest-cov
+        pytest --cov-report=xml --cov=app  -v
+    - name: upload coverage
+      uses: codecov/codecov-action@v1
+      with: 
+        token: ${{ secrets.CODECOV_TOKEN }}

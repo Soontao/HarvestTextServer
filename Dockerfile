@@ -14,4 +14,4 @@ RUN pip install -r requirements.txt
 
 EXPOSE 5000
 
-CMD ["uwsgi", "--http", "0.0.0.0:5000", "--module", "app:app"]
+CMD ["uwsgi", "--http", "0.0.0.0:5000", "--module", "app/app:app"]
